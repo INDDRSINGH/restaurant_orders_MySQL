@@ -18,7 +18,7 @@ SELECT * FROM orders;
 
 
 | Order_id     | Customer_code      | Placed_at           | Restaurant_id | Cuisine  | Order_status | Promo_code_Name |
-+--------------+--------------------+---------------------+---------------+----------+--------------+-----------------+
+|--------------|--------------------|---------------------|---------------|----------|--------------|-----------------|
 | OF1900191801 | UFDDN1991918XUY1   | 2025-01-01 15:30:20 | KMKMH6787     | Lebanese | Delivered    | Tasty50         |
 | OF1900191802 | UFDDN1991918XUY1   | 2025-01-02 12:15:45 | LEBANESE2     | Lebanese | Delivered    | NULL            |
 | OF1900191803 | UFDDN1991918XUY1   | 2025-01-10 18:45:30 | PIZZA123      | Italian  | Cancelled    | HUNGRY20        |
@@ -94,6 +94,9 @@ SELECT * FROM orders;
 | OF1900191873 | UVW7890123456JKL   | 2025-03-25 19:15:00 | PIZZA123      | Italian  | Delivered    | TASTY50         |
 
 
+
+
+
 **Top 1 outlet by each cuisine type**
 
 
@@ -120,6 +123,8 @@ order by cnt desc;
 
 
 
+
+
 **Number of customers joining each day.**
 
 ````SQL
@@ -136,7 +141,7 @@ order by date_order;
 **Result :**
 
 | date_order | new_customers |
-+------------+---------------+
+|------------|---------------|
 | 2025-01-01 |             2 |
 | 2025-01-02 |             1 |
 | 2025-01-03 |             1 |
@@ -175,6 +180,8 @@ order by date_order;
 
 
 
+
+
 **Number of repeat orders each month**
 
 ````SQL
@@ -192,10 +199,11 @@ order by month_order;
 **Result :**
 
 | month_order | cnt_repeat_customers |
-+-------------+----------------------+
+|-------------|----------------------|
 |           1 |                   46 |
 |           2 |                    6 |
 |           3 |                    7 |
+
 
 
 
@@ -218,7 +226,7 @@ where month(placed_at) > 1) ;
 **Result :**
 
 | Customer_code     |
-+-------------------+
+|-------------------|
 | ABC1234567890XYZ  |
 | GHI5678901234XYZ  |
 | JKL3456789012XYZ  |
@@ -256,6 +264,8 @@ where month(placed_at) > 1) ;
 | SINGLE_ORDER_JAN  |
 
 
+
+
 **List all customers with no orders in the last 7 days but were acquired one month ago with first order on promo code.**
 
 
@@ -277,7 +287,7 @@ o.promo_code_name is not null ;
 **Result :**
 
 | customer_code     | first_order | latest_order | promo_code_name |
-+-------------------+-------------+--------------+-----------------+
+|-------------------|-------------|--------------|-----------------|
 | ABC1234567890XYZ  | 2025-01-01  | 2025-01-05   | NEWUSER         |
 | DEF9876543210XYZ  | 2025-01-02  | 2025-03-02   | FIRSTORDER      |
 | GHI5678901234XYZ  | 2025-01-03  | 2025-01-03   | NEWUSER         |
@@ -305,6 +315,8 @@ o.promo_code_name is not null ;
 
 
 
+
+
 **Show the customer id of the customers after every second transaction, which team can use to send personalized email.**
 
 ````SQL
@@ -320,8 +332,10 @@ order by customer_code;
 
 
 | Order_id     | Customer_code      | Placed_at           | Restaurant_id | Cuisine | Order_status | Promo_code_Name | transaction_number |
-+--------------+--------------------+---------------------+---------------+---------+--------------+-----------------+--------------------+
+|--------------|--------------------|---------------------|---------------|---------|--------------|-----------------|--------------------|
 | OF1900191870 | MULTI_CUISINE_CUST | 2025-03-31 14:45:00 | PIZZA123      | Italian | Delivered    | NULL            |                  6 |
+
+
 
 
 
@@ -339,9 +353,11 @@ no_of_orders = promocode_count ;
 
 
 | customer_code    | no_of_orders | promocode_count |
-+------------------+--------------+-----------------+
+|------------------|--------------|-----------------|
 | DEF9876543210XYZ |            2 |               2 |
 | UVW7890123456JKL |            3 |               3 |
+
+
 
 
 **list of customers which were acquired organically in Jan 2025, without any promo code**
@@ -362,7 +378,7 @@ where rn = 1 and promo_code_name is null;
 
 
 | Order_id     | Customer_code    | Placed_at           | Restaurant_id | Cuisine  | Order_status | Promo_code_Name | rn |
-+--------------+------------------+---------------------+---------------+----------+--------------+-----------------+----+
+|--------------|------------------|---------------------|---------------|----------|--------------|-----------------|----|
 | OF1900191825 | CDE3456789012GHI | 2025-01-19 11:00:00 | BURGER99      | American | Delivered    | NULL            |  1 |
 | OF1900191834 | DEF5678901234MNO | 2025-01-28 18:30:00 | ITALIAN2      | Italian  | Delivered    | NULL            |  1 |
 | OF1900191817 | EFG1234567890DEF | 2025-01-11 09:30:00 | TACO789       | Mexican  | Delivered    | NULL            |  1 |
@@ -384,6 +400,7 @@ where rn = 1 and promo_code_name is null;
 
 
 
+
 **Percentage of customers which were acquired organically in Jan 2025, without any promo code.**
 
 ````SQL
@@ -395,7 +412,7 @@ from jan_null_promocode;
 **Result :**
 
 | organic_percentage |
-+--------------------+
+|--------------------|
 |            43.9024 |
 
 
